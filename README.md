@@ -1,9 +1,6 @@
 # iBFA
 
-**interval Bayesian Factor Analysis** for incomplete multi-omics data.
-
-> ktsingas · github.com/ktsingas/iBFA
-
+**Knowledge-guided bayesian factor analysis for integration of incomplete multi-omics data.**
 ---
 
 <!-- Insert graphical abstract here once ready -->
@@ -15,16 +12,14 @@
 
 iBFA learns shared latent structure across mixed data types (continuous, binary, count) that are typically collected from the same subjects across multiple omics platforms. Key aspects:
 
-- **Mixed likelihoods.** Gaussian, Bernoulli, and Binomial features are handled jointly via Pólya-Gamma data augmentation — no pre-processing or separating the data required.
+- **Mixed likelihoods.** Gaussian, Bernoulli, and Binomial features are handled jointly via Pólya-Gamma data augmentation.
 - **Graph-structured shrinkage.** A precision-matrix prior on the factor loadings is informed by a user-supplied feature adjacency graph (e.g. from pathway databases), encouraging features connected in the graph to have correlated loadings and improving interpretability.
-- **Missing data.** Missing entries are imputed jointly with the latent factors inside the sampler (data augmentation), so uncertainty about missing values propagates through all estimates automatically.
+- **Missing data.** Missing entries are imputed jointly with the latent factors inside the sampler (data augmentation), so uncertainty about missing values propagates through all estimates.
 - **Credible intervals.** 95% posterior credible intervals on every loading identify features with non-zero contribution to each factor, and sparse factors are pruned automatically after burn-in.
 
 ---
 
 ## Setup
-
-Not on CRAN — source the scripts directly. Install dependencies once:
 
 ```r
 install.packages(c("MASS", "statmod", "Matrix", "matrixcalc", "corpcor", "BayesLogit"))
@@ -59,8 +54,6 @@ fit <- iBFA(X, dt, graph = graph, L = 8, T = 2000, burn_in = 1000)
 W <- fit$w_est   # p x L  factor loading matrix
 Z <- fit$z_est   # L x n  factor score matrix
 ```
-
-Progress is printed each iteration as `"Task Progress: 0.001"` through `"Task Progress: 1"`.
 
 ---
 
@@ -155,9 +148,6 @@ tuned <- iBFA_tune(X, dt, graph = graph,
 best <- tuned$best    # full iBFA result for the best grid point
 tuned$grid            # data frame: all (L, nu_1, nu_2, bic) combinations
 ```
-
-Uses `mclapply` on Unix/macOS and `parLapply` on Windows. BIC selection uses `bic_1` by default; switch to `bic_1obs` in `iBFA_tune.R` if data is heavily missing.
-
 ---
 
 ## R session info
@@ -183,9 +173,3 @@ iBFA/
 │   └── example_mixed.R # Gaussian + Bernoulli, G2 graph, 20% MAR missingness
 └── README.md
 ```
-
----
-
-## Citation
-
-> Tsingas K et al. (2026). *Interval Bayesian Factor Analysis for incomplete multi-omics data with graph-structured priors.* [Journal TBD].
