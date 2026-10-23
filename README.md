@@ -3,13 +3,6 @@
 **Knowledge-guided bayesian factor analysis for integration of incomplete multi-omics data.**
 ---
 
-<!-- Insert graphical abstract here once ready -->
-<!-- ![](manuscript/graphical_abstract.pdf) -->
-
----
-
-## What it does
-
 iBFA learns shared latent structure across mixed data types (continuous, binary, count) that are typically collected from the same subjects across multiple omics platforms. Key aspects:
 
 - **Mixed likelihoods.** Gaussian, Bernoulli, and Binomial features are handled jointly via Pólya-Gamma data augmentation.
